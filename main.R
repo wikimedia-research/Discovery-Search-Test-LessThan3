@@ -46,15 +46,17 @@ main <- function(){
   
   per_group <- data[, j = list(events = sum(events)), by = c("date", "group")]
   ggsave(file = "events_by_group_summary.png",
-         plot = ggplot(per_group, aes(date, events, group = group, type = group, colour = group)) + geom_line() +
+         plot = ggplot(per_group, aes(date, events, group = group, type = group, colour = group)) + geom_line(size=1.5) +
            theme_fivethirtynine() + labs(title = "Events by day and group, second language switching test",
-                                         x = "Date", y = "Events") + expand_limits(y = 0))
+                                         x = "Date", y = "Events") + expand_limits(y = 0) +
+           theme(legend.text = element_text(size=18)))
   
   per_platform <- data[, j = list(events = sum(events)), by = c("source", "group")]
   ggsave(plot = ggplot(per_platform, aes(source, events, group = group, type = group, fill = group)) + 
            geom_bar(stat = "identity", position = "dodge") + theme_fivethirtynine() +
            labs(title = "Distribution of events per group and source, Second language switching test",
-                x = "Source", y = "Events"),
+                x = "Source", y = "Events") +
+           theme(legend.text = element_text(size=18)),
          file = "events_by_source_summary.png")
   
   # Function for performing necessary analysis

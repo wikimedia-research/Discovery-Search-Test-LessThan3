@@ -28,13 +28,13 @@ To check our hypothesis we ran a second A/B test, from 21 November to 27 Novembe
 
 Our first task is to explore the data to make sure, amongst other things, that sampling worked correctly. If it did not, the test groups may not be comparable with the non-test group.
 
-First, we looked at things on a by-day basis; for each day in the test, how many events <!-- As an aside, wouldn't it be clearer to refer to them as queries rather than events? Especially since we use 'events' to refer to user actions logged with EL. --> do we have in each group?
+First, we looked at things on a by-day basis; for each day in the test, how many events <!-- As an aside, wouldn't it be clearer to refer to them as queries rather than events? Especially since we use 'events' to refer to user actions logged with EL. --> <!-- we use events to refer to user actions, full stop; that's why it's used here. Referring to them as queries means intentional vagueness since these can be multiple queries. --> do we have in each group?
 
-![Fig1](events_by_group_summary.png) <!-- Group labels are too small. -->
+![Fig1](events_by_group_summary.png)
 
-There is some uneveness, but not substantial amounts. <!-- There is so much empty, useless space in this figure. It would benefit significantly from different y limits. --> If we look at events by source:
+There is some uneveness, but not substantial amounts. <!-- There is so much empty, useless space in this figure. It would benefit significantly from different y limits. --> <!-- using different Y limits means distorting the graph and making the difference between groups appear tremendous --> If we look at events by source:
 
-![Fig2](events_by_source_summary.png) <!-- Group labels are too small. -->
+![Fig2](events_by_source_summary.png)
 
 We see the same discrepancy, which is being explored separately, but again, it is not on such a scale to make us worry about the viability of the data.
 
@@ -44,13 +44,14 @@ We see the same discrepancy, which is being explored separately, but again, it i
 
 First we compare the control group to the group that was exposed to language detection if they got zero results. Looking at the population as a whole we see no substantial improvement; whether we filter down to just API or just web requests, or look at the entire population, there's no real increase in the probability of a successful outcome.
 
-However, if we look just at those queries eligible for language detection, we see a remarkable improvement; users eligible for language detection who were exposed to it are **22%** more likely to get results than the baseline population, a 3.5x improvement. <!-- You got the proportion difference and relative risk mixed up. Proportion difference of 22% would result from, say, 60% of control group getting results and 82% (=60%+22%) of the test group getting results. Where is the "3.5x improvement" coming from? Wasn't that the lower bound on the relative risk credible interval? The relative risk is interpreted as "times more/less likely". So you'd say the group with the language detection were 3.5-6 (I think 6 was the upper bound) times more likely to get results, which is not exactly the same as saying there is a 3.5x improvement. -->
+However, if we look just at those queries eligible for language detection, we see a remarkable improvement; users eligible for language detection who were exposed to it are **3.5-6** times more likely to get results than the baseline population.
 
-This discrepancy is likely to be because the sheer volume of queries was drowning out this positive outcome; we didn't see a big improvement for the group overall because most people in the test group and control could never have received the language detection. It's akin to testing a medical drug for the plague: you're much more likely to see a health improvement if you give it to people who *actually have the plague*. It's probably not going to improve the health of those who don't. <!-- Remember, vaccines are useless for people who already sick with the thing they're trying to vaccinate from :P -->
+This discrepancy is likely to be because the sheer volume of queries was drowning out this positive outcome; we didn't see a big improvement for the group overall because most people in the test group and control could never have received the language detection. It's akin to testing a cure for the plague: you're much more likely to see a health improvement if you give it to people who *actually have the plague*. It's probably not going to improve the health of those who don't.
 
 ### <3 search results
 
-When we compare the control group to the <3 group, we see no substantial improvement in outcome<!-- Might want to mention that the outcome being studied here was different. That you were looking at the zero results vs some results anymore; that you were looking at "got more results after language detection vs didn't". -->, either for the entire group or those eligible for language detection. One hypothesis for this is that language detection is more likely to be wrong. If someone is already getting 1-2 results, what they searched for is probably at least vaguely sensical in that project's language. Switching it is unlikely to be helpful.
+With the <3 results, we compare to the control not to see which population got fewer "zero results" outcomes than the other, but which got
+fewer "<3 results" outcomes. When we make that comparison, we see no substantial improvement in outcome, either for the entire group or those eligible for language detection. One hypothesis for this is that language detection is more likely to be wrong. If someone is already getting 1-2 results, what they searched for is probably at least vaguely sensical in that project's language. Switching it is unlikely to be helpful.
 
 ## Conclusion
 
